@@ -61,11 +61,11 @@ class SeoPageControllerExtension extends Extension
      **/
     public function getPageMetaTags()
     {
-        $meta = $this->owner->customise([
-            'SeoPageObject' => ($this->seo ? $this->seo : $this->owner)
+        $meta = $this->getOwner()->customise([
+            'SeoPageObject' => ($this->seo ?: $this->getOwner())
         ])->renderWith('HeadTags')->RAW();
 
-        $meta = implode("\n", array_filter(explode("\n", $meta)));
+        $meta = implode("\n", array_filter(explode("\n", (string) $meta)));
         return DBField::create_field('HTMLText', $meta);
     }
 

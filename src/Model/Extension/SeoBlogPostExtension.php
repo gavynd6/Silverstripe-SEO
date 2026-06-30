@@ -2,11 +2,7 @@
 
 namespace CyberDuck\SEO\Model\Extension;
 
-use SilverStripe\Forms\FieldList;
-use SilverStripe\Forms\HeaderField;
-use SilverStripe\Forms\CheckboxField;
-use SilverStripe\ORM\DataExtension;
-
+use SilverStripe\Core\Extension;
 /**
  * SeoBlogPostExtension
  *
@@ -16,7 +12,7 @@ use SilverStripe\ORM\DataExtension;
  * @license MIT License https://github.com/cyber-duck/silverstripe-seo/blob/master/LICENSE
  * @author  <andrewm@cyber-duck.co.uk>
  **/
-class SeoBlogPostExtension extends DataExtension
+class SeoBlogPostExtension extends Extension
 {	
     /**
      * Returns the summary description for use in schema description
@@ -25,7 +21,7 @@ class SeoBlogPostExtension extends DataExtension
      */
     public function getSchemaSummary()
 	{
-		return strip_tags($this->owner->Summary);
+		return strip_tags((string) $this->owner->Summary);
 	}
     
     /**
@@ -35,7 +31,7 @@ class SeoBlogPostExtension extends DataExtension
      */
 	public function getSchemaPublishDate()
 	{
-		return date('c', strtotime($this->owner->PublishDate));
+		return date('c', strtotime((string) $this->owner->PublishDate));
 	}
     
     /**
@@ -45,6 +41,6 @@ class SeoBlogPostExtension extends DataExtension
      */
 	public function getSchemaLastEditedDate()
 	{
-		return date('c', strtotime($this->owner->LastEdited));
+		return date('c', strtotime((string) $this->owner->LastEdited));
 	}
 }

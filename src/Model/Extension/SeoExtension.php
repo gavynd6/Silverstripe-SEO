@@ -2,6 +2,7 @@
 
 namespace CyberDuck\SEO\Model\Extension;
 
+use Override;
 use SilverStripe\Forms\FieldList;
 use SilverStripe\Forms\TextField;
 
@@ -39,6 +40,7 @@ class SeoExtension extends SeoPageExtension
      *
      * @return FieldList
      **/
+    #[Override]
     public function updateCMSFields(FieldList $fields) 
     {
         $fields = parent::updateCMSFields($fields);

@@ -2,15 +2,14 @@
 
 namespace CyberDuck\SEO\Model\Extension;
 
+use SilverStripe\Core\Extension;
 use SilverStripe\AssetAdmin\Forms\UploadField;
 use SilverStripe\Assets\Image;
 use SilverStripe\Core\Config\Config;
 use SilverStripe\Forms\CheckboxField;
 use SilverStripe\Forms\FieldList;
 use SilverStripe\Forms\HeaderField;
-use SilverStripe\Forms\LiteralField;
 use SilverStripe\Forms\TextField;
-use SilverStripe\ORM\DataExtension;
 
 /**
  * SeoSiteConfigExtension
@@ -21,7 +20,7 @@ use SilverStripe\ORM\DataExtension;
  * @license MIT License https://github.com/cyber-duck/silverstripe-seo/blob/master/LICENSE
  * @author  <andrewm@cyber-duck.co.uk>
  **/
-class SeoSiteConfigExtension extends DataExtension
+class SeoSiteConfigExtension extends Extension
 {
     /**
      * Array of extra CMS settings fields

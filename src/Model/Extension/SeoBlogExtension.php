@@ -2,10 +2,10 @@
 
 namespace CyberDuck\SEO\Model\Extension;
 
+use SilverStripe\Core\Extension;
 use SilverStripe\Forms\FieldList;
 use SilverStripe\Forms\HeaderField;
 use SilverStripe\Forms\CheckboxField;
-use SilverStripe\ORM\DataExtension;
 
 /**
  * SeoBlogExtension
@@ -16,7 +16,7 @@ use SilverStripe\ORM\DataExtension;
  * @license MIT License https://github.com/cyber-duck/silverstripe-seo/blob/master/LICENSE
  * @author  <andrewm@cyber-duck.co.uk>
  **/
-class SeoBlogExtension extends DataExtension
+class SeoBlogExtension extends Extension
 {
     /**
      * Our page fields

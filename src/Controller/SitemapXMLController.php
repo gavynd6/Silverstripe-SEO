@@ -2,14 +2,14 @@
 
 namespace CyberDuck\SEO\Controller;
 
-use Page;
+use Override;
+use SilverStripe\Model\List\ArrayList;
 use CyberDuck\SEO\Generators\SitemapGenerator;
 use SilverStripe\Control\Controller;
 use SilverStripe\Control\Director;
 use SilverStripe\Control\HTTPRequest;
 use SilverStripe\Core\Config\Config;
 use SilverStripe\ErrorPage\ErrorPage;
-use SilverStripe\ORM\ArrayList;
 use SilverStripe\Subsites\Model\Subsite;
 
 /**
@@ -30,6 +30,7 @@ class SitemapXMLController extends Controller
      *
      * @return void
      **/
+    #[Override]
     public function init()
     {
         parent::init();

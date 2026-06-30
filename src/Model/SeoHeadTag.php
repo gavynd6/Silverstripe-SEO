@@ -2,6 +2,7 @@
 
 namespace CyberDuck\SEO\Model;
 
+use Override;
 use SilverStripe\Forms\HeaderField;
 use SilverStripe\Forms\DropdownField;
 use SilverStripe\Forms\TextField;
@@ -100,6 +101,7 @@ class SeoHeadTag extends DataObject
      *
      * @return FieldList
      **/
+    #[Override]
     public function getCMSFields() 
     {
         $fields = parent::getCMSFields();

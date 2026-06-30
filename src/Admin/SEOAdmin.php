@@ -2,6 +2,7 @@
 
 namespace CyberDuck\SEO\Admin;
 
+use Override;
 use Page;
 use Exception;
 use CyberDuck\SEO\Model\Extension\SeoExtension;
@@ -10,11 +11,12 @@ use SilverStripe\Admin\ModelAdmin;
 
 class SEOAdmin extends ModelAdmin
 {
+    #[Override]
     public function getEditForm($id = null, $fields = null)
     {
         $form = parent::getEditForm($id, $fields);
         
-        $list = $this->getList()->sort('Priority', 'DESC');
+        $list = $this->getList()->sort(['Priority' => 'DESC']);
 
         $grid = $form->Fields()->fieldByName($this->sanitiseClassName($this->modelClass));
         $grid->setList($list);
@@ -35,6 +37,7 @@ class SEOAdmin extends ModelAdmin
         return $form;
     }
 
+    #[Override]
     public function getExportFields()
     {
         $fields = [

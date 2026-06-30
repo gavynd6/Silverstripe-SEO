@@ -2,6 +2,8 @@
 
 namespace CyberDuck\SEO\Model\Extension;
 
+use SilverStripe\Core\Extension;
+use SilverStripe\Model\List\PaginatedList;
 use Page;
 use CyberDuck\SEO\Model\SeoHeadTag;
 use CyberDuck\SEO\Forms\MetaPreviewField;
@@ -9,11 +11,9 @@ use CyberDuck\SEO\Admin\SEOAdmin;
 use SilverStripe\Assets\Image;
 use SilverStripe\AssetAdmin\Forms\UploadField;
 use SilverStripe\Blog\Model\BlogPost;
-use SilverStripe\CMS\Model\SiteTree;
 use SilverStripe\Control\Controller;
 use SilverStripe\Control\Director;
 use SilverStripe\Core\Config\Config;
-use SilverStripe\Core\Convert;
 use SilverStripe\ErrorPage\ErrorPage;
 use SilverStripe\Forms\CheckboxField;
 use SilverStripe\Forms\FieldList;
@@ -26,9 +26,7 @@ use SilverStripe\Forms\TextareaField;
 use SilverStripe\Forms\DropdownField;
 use SilverStripe\Forms\NumericField;
 use SilverStripe\i18n\i18n;
-use SilverStripe\ORM\DataExtension;
 use SilverStripe\ORM\FieldType\DBField;
-use SilverStripe\ORM\PaginatedList;
 use SilverStripe\Security\Permission;
 use SilverStripe\SiteConfig\SiteConfig;
 
@@ -64,7 +62,7 @@ use SilverStripe\SiteConfig\SiteConfig;
  * related DataObject detection and other features. You can subclass, override, or
  * use YML config to compliment this class and create your own detailed Meta strategies.
  **/
-class SeoPageExtension extends DataExtension
+class SeoPageExtension extends Extension
 {
     /**
      * Our page fields
@@ -504,7 +502,7 @@ class SeoPageExtension extends DataExtension
      **/
     public function getPageURL()
     {
-        return Director::absoluteBaseURL().substr($this->owner->Link(), 1);
+        return Director::absoluteBaseURL().substr((string) $this->owner->Link(), 1);
     }
 
     /**
@@ -701,7 +699,7 @@ class SeoPageExtension extends DataExtension
      **/
     public function getSitemapDate()
     {
-        return date('c', strtotime($this->owner->LastEdited));
+        return date('c', strtotime((string) $this->owner->LastEdited));
     }
 
     /**
@@ -712,7 +710,7 @@ class SeoPageExtension extends DataExtension
      *
      * @since version 2.0.0
      *
-     * @param PaginatedList $list   Paginated list object
+     * @param PaginatedList $list Paginated list object
      * @param array         $params Array of $_GET params to allow in the URL // todo
      *
      * @return string|404 response

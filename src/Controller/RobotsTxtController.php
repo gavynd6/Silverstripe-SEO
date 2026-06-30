@@ -2,6 +2,7 @@
 
 namespace CyberDuck\SEO\Controller;
 
+use Override;
 use SilverStripe\Control\Controller;
 use SilverStripe\Control\Director;
 use SilverStripe\Control\HTTPRequest;
@@ -24,6 +25,7 @@ class RobotsTxtController extends Controller
      *
      * @return void
      **/
+    #[Override]
     public function init()
     {
         parent::init(); 

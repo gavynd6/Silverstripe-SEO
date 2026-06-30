@@ -16,33 +16,6 @@ use SilverStripe\ORM\DataObject;
 class DynamicMetaGenerator
 {
     /**
-     * A string of Meta text
-     *
-     * @since version 1.0.0
-     *
-     * @var string $text 
-     **/
-    private $text;
-
-    /**
-     * An object with the SEO extension attached
-     *
-     * @since version 1.0.0
-     *
-     * @var DataObject $object 
-     **/
-    private $object;
-
-    /**
-     * Seperator string between looped relations
-     *
-     * @since version 1.0.0
-     *
-     * @var string $seperator 
-     **/
-    private $seperator;
-
-    /**
      * Set a dynamic Meta tag populated with an object properties
      *
      * @param string     $text      Meta text with placeholders [Value]
@@ -53,11 +26,27 @@ class DynamicMetaGenerator
      *
      * @return void
      **/
-    function __construct($text, DataObject $object, $seperator = 'and')
+    function __construct(
+        /**
+         * A string of Meta text
+         *
+         * @since version 1.0.0
+         **/
+        private $text,
+        /**
+         * An object with the SEO extension attached
+         *
+         * @since version 1.0.0
+         **/
+        private readonly DataObject $object,
+        /**
+         * Seperator string between looped relations
+         *
+         * @since version 1.0.0
+         **/
+        private $seperator = 'and'
+    )
     {
-        $this->text = $text;
-        $this->object = $object;
-        $this->seperator = $seperator;
     }
 
     /**
@@ -75,8 +64,8 @@ class DynamicMetaGenerator
 
         foreach($this->placeholders() as $value){
             // check for relation placeholders with a .
-            if(strpos($value,".") !== false){
-                $relations = explode('.',$value);
+            if(str_contains((string) $value,".")){
+                $relations = explode('.',(string) $value);
 
                 // get the relation name
                 $many = $relations[0];
@@ -85,10 +74,10 @@ class DynamicMetaGenerator
                 $property = $relations[1];
 
                 // loop the relation and assign the necessary property to an array
-                if($object->hasMany($many) || $object->manyMany($many)){
+                if($object->hasMany($many) || $object->manyMany()){
                     $values = [];
                     foreach($object->$many() as $one){
-                        $values[] = trim($one->$property);
+                        $values[] = trim((string) $one->$property);
                     }
                     $last = array_pop($values);
                     $first = implode(', ',$values);
@@ -101,7 +90,7 @@ class DynamicMetaGenerator
                         $result[] = $first;
                         $result[] = ', '.$this->seperator.' ';
                         $result[] = $last;
-                        $result = implode($result);
+                        $result = implode('', $result);
                     }
                 } else {
                     user_error('Invalid relations in dynamic SEO tag');
@@ -111,7 +100,7 @@ class DynamicMetaGenerator
                 $result = trim($object->$value);
             }
             // replace the placeholder with the new value
-            $this->text = trim(str_replace('['.$value.']', htmlspecialchars($result), $this->text));
+            $this->text = trim(str_replace('['.$value.']', htmlspecialchars((string) $result), $this->text));
         }
         return $this->text;
     }

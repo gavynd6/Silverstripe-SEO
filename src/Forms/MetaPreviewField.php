@@ -22,13 +22,6 @@ use SilverStripe\View\Requirements;
 class MetaPreviewField extends LiteralField
 {
     /**
-     * Object instance used to populate Meta from
-     *
-     * @since version 2.0.0
-     **/
-    private $page;
-
-    /**
      * Requires a DataObject to be passed
      *
      * @since version 1.0.0
@@ -37,10 +30,8 @@ class MetaPreviewField extends LiteralField
      *
      * @return void
      **/
-    public function __construct(DataObject $page)
+    public function __construct(private readonly DataObject $page)
     {
-        $this->page = $page;
-        
         Requirements::javascript('cyber-duck/silverstripe-seo:assets/js/serp.js');
 
         parent::__construct('MetaPreviewField', $this->getMetaContent());
@@ -95,7 +86,7 @@ class MetaPreviewField extends LiteralField
      **/
     private function getPageMetaLink()
     {
-        return Director::absoluteBaseURL().substr($this->page->Link(), 1);
+        return Director::absoluteBaseURL().substr((string) $this->page->Link(), 1);
     }
 
     /**

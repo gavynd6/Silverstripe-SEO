@@ -8,7 +8,6 @@ use SilverStripe\Core\Config\Config;
 use SilverStripe\ErrorPage\ErrorPage;
 use SilverStripe\ORM\Arraylist;
 use SilverStripe\ORM\DataList;
-use SilverStripe\ORM\DataObject;
 use SilverStripe\Subsites\Model\SubSite;
 use SilverStripe\Subsites\Model\SubsiteDomain;
 
@@ -51,7 +50,7 @@ class SitemapGenerator
     private function getSitemapHost()
     {
         if(class_exists(SubSite::class)) {
-            $site = DataObject::get_by_id(SubsiteDomain::class, Subsite::currentSubSiteID());
+            $site = SubsiteDomain::get()->byID(Subsite::currentSubSiteID());
 
             if($site) return Director::protocol().$site->Domain;
         }
